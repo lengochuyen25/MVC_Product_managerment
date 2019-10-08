@@ -1,30 +1,44 @@
 package com.codegym.model;
 
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+
+import javax.persistence.*;
+import java.util.Locale;
+
+@Entity
+@Table(name = "products")
+
+
 public class Product {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+
+    private Long id;
     private String name;
     private String price;
     private String img;
     private String description;
-    private String author;
+
+
 
     public Product() {
     }
 
-    public Product(int id, String name, String price, String img, String description, String author) {
+    public Product(Long id, String name, String price, String img, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.img = img;
         this.description = description;
-        this.author = author;
+
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -60,12 +74,6 @@ public class Product {
         this.description = description;
     }
 
-    public String getAuthor() {
-        return author;
-    }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }
 
