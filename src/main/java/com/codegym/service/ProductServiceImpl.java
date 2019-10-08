@@ -47,14 +47,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findByName(String name) {
-        List<Product> product = new ArrayList<>(products.values());
-        List<Product> products1 = new ArrayList<>();
-        for (Product p : product) {
-            if (name.equals(p.getName())) {
-                products1.add(p);
+    public ArrayList<Product> findByName(String name) {
+        List<Product> searchList=new ArrayList<>();
+
+        for (Product product: findAll()){
+            if (product.getName().equals(name)){
+                searchList.add(product);
             }
+
+
         }
-        return products1;
+        return (ArrayList<Product>) searchList;
+
+
     }
 }
