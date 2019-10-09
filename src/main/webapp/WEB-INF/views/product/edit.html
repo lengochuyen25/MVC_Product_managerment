@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td>Img:</td>
-            <td><input type="text" th:field="*{img}"/></td>
+            <td><img width="150px" height="150px" th:src="@{'/i/' + ${product.img}}"/><input type="file" th:field="*{img}"></td>
         </tr>
         <tr>
             <td>Description:</td>
