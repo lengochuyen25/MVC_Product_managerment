@@ -1,25 +1,17 @@
 package com.codegym.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
-
-@Entity
-@Table(name = "products")
-
-
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+public class ProductForm {
 
     private Long id;
     private String name;
     private String price;
-    private String img;
+    private MultipartFile img;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
     private Author author;
 
     public Author getAuthor() {
@@ -32,10 +24,10 @@ public class Product {
 
 
 
-    public Product() {
+    public ProductForm() {
     }
 
-    public Product(Long id, String name, String price, String img, String description) {
+    public ProductForm(Long id, String name, String price, MultipartFile img, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -44,7 +36,7 @@ public class Product {
 
     }
 
-    public Product(Long id,String name, String price, String img, String description, Author author) {
+    public ProductForm(Long id, String name, String price, MultipartFile img, String description, Author author) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -77,11 +69,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getImg() {
+    public MultipartFile getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(MultipartFile img) {
         this.img = img;
     }
 

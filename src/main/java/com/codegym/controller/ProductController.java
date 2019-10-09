@@ -1,31 +1,50 @@
 package com.codegym.controller;
 
+import com.codegym.model.Author;
 import com.codegym.model.Product;
-import com.codegym.service.impl.ProductService;
+import com.codegym.model.ProductForm;
+import com.codegym.service.AuthorService;
+import com.codegym.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
+@PropertySource("classpath:global_config_app.properties")
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private AuthorService authorService;
+
+    @ModelAttribute("authors")
+    public Iterable<Author> authors(){
+
+        return authorService.findAll();
+    }
 
     @GetMapping("/products")
-    public ModelAndView listProducts() {
-        List<Product> products = productService.findAll();
+    public ModelAndView listProducts(@RequestParam("s") Optional<String> s, Pageable pageable) {
+        Page<Product> products;
+        if(s.isPresent()){
+            products=productService.findAllByNameContaining(s.get(),pageable);
+        }else {
+           products = productService.findAll(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("/product/list");
         modelAndView.addObject("products", products);
         return modelAndView;
@@ -34,13 +53,16 @@ public class ProductController {
     @GetMapping("/create-product")
     public ModelAndView showCreateForm() {
         ModelAndView modelAndView = new ModelAndView("/product/create");
-        modelAndView.addObject("product", new Product());
+        modelAndView.addObject("product", new ProductForm());
         return modelAndView;
     }
 
     @PostMapping("/create-product")
-    public ModelAndView saveProduct(@ModelAttribute("product") Product product) {
-        productService.save(product);
+    public ModelAndView saveProduct(@ModelAttribute("product") ProductForm productForm, BindingResult result) {
+        if(result.hasFieldErrors()){
+            return new ModelAndView("/product/error.404");
+        }
+        productService.save(productForm);
         ModelAndView modelAndView = new ModelAndView("/product/create");
         modelAndView.addObject("product", new Product());
         modelAndView.addObject("message", "New product created successfully");
@@ -61,10 +83,10 @@ public class ProductController {
     }
 
     @PostMapping("/edit-product")
-    public ModelAndView updateCustomer(@ModelAttribute("product") Product product) {
-        productService.save(product);
+    public ModelAndView updateCustomer(@ModelAttribute("product") ProductForm productForm) {
+        productService.save(productForm);
         ModelAndView modelAndView = new ModelAndView("/product/edit");
-        modelAndView.addObject("product", product);
+        modelAndView.addObject("product", productForm);
         modelAndView.addObject("message", "Product update successfully");
         return modelAndView;
     }

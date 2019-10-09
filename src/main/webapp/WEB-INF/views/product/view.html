@@ -21,7 +21,7 @@
 
     <div class="prodetail">
         <label>Img: </label>
-        <label th:text="${product.img}"></label>
+        <img width="150px" height="150px" th:src="@{'/i/' + ${product.img}}"/>
     </div>
 
     <div class="prodetail">

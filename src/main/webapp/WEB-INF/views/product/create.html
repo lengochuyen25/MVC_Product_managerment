@@ -16,7 +16,7 @@
 </th:block>
 
 
-<form th:action="@{/create-product}" th:object="${product}" method="post">
+<form th:action="@{/create-product}" th:object="${product}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
             <td>Name:</td>
@@ -28,12 +28,21 @@
         </tr>
         <tr>
             <td>Img:</td>
-            <td><input type="text" th:field="*{img}"/></td>
+            <td><input type="file" th:field="*{img}">
+            </td>
         </tr>
 
         <tr>
             <td>Description:</td>
             <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td>Author:</td>
+            <td>
+                <select th:field="*{author}">
+                    <option th:each="p : ${authors}" th:value="${p.id}" th:text="${p.name}"></option>
+                </select>
+            </td>
         </tr>
 
         <tr>

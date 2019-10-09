@@ -26,10 +26,20 @@
             <td>Img:</td>
             <td><input type="text" th:field="*{img}"/></td>
         </tr>
-
         <tr>
             <td>Description:</td>
             <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td>Author:</td>
+            <td>
+                <select name="author">
+                    <option th:each="p : ${authors}"
+                            th:value="${p.id}"
+                            th:text="${p.name}"
+                            th:selected="(${p.id} == *{author.id})"></option>
+                </select>
+            </td>
         </tr>
 
         <tr>
