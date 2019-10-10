@@ -60,6 +60,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new AuthorFormatter(applicationContext.getBean(AuthorService.class)));
@@ -76,6 +77,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     }
 
 
+
     //Thymeleaf Configuration
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
@@ -84,6 +86,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         templateResolver.setPrefix("/WEB-INF/views");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -98,6 +101,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public ThymeleafViewResolver viewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
     }
 
@@ -124,7 +128,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/pms");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/pms?useUnicode=yes&characterEncoding=utf-8");
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
         return dataSource;
@@ -165,9 +169,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         String fileUpload = env.getProperty("file_upload").toString();
 
         // Image resource.
-        registry.addResourceHandler("/i/**") //
+        registry.addResourceHandler("/image/**") //
                 .addResourceLocations("file:" + fileUpload);
 
     }
-
 }

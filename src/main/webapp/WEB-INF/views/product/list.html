@@ -41,7 +41,7 @@
         <tr>
             <td th:text="${product.name}"></td>
             <td th:text="${product.price}"></td>
-            <td><img width="150px" height="150px" th:src="@{'/i/' + ${product.img}}"/></td>
+            <td><img width="150px" height="150px" th:src="@{'/image/' + ${product.img}}"/></td>
             <td th:text="${product.description}"></td>
 
             <td th:text="${product.author.name}"></td>

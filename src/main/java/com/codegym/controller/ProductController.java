@@ -86,10 +86,12 @@ public class ProductController {
     public ModelAndView updateCustomer(@ModelAttribute("product") ProductForm productForm) {
         productService.save(productForm);
         ModelAndView modelAndView = new ModelAndView("/product/edit");
-        modelAndView.addObject("product", productForm);
+        modelAndView.addObject("product", productService.exchangeObject(productForm));
         modelAndView.addObject("message", "Product update successfully");
         return modelAndView;
     }
+
+
 
     @GetMapping("/delete-product/{id}")
     public ModelAndView showDeleteForm(@PathVariable Long id) {

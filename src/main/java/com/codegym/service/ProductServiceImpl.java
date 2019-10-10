@@ -35,7 +35,12 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void save(ProductForm productForm) {
-        Product product = exchangeObject(productForm);
+        //1. store img to hask disk;
+
+        //2. store url, info of product to database
+
+        Product product = exchangeObject(productForm); //
+
        productRepository.save(product);
     }
 
@@ -53,12 +58,16 @@ public class ProductServiceImpl implements ProductService{
             MultipartFile multipartFile = productForm.getImg();
             fileName = multipartFile.getOriginalFilename();
         }
-        String fileUpload = env.getProperty("file_upload");
+        String folderContaintFileStore = env.getProperty("file_upload");
+        // /home/huyen/IdeaProjects/ListMVC/MVC_Product_managerment/src/main/webapp/WEB-INF/views/images/
         try {
-            FileCopyUtils.copy(productForm.getImg().getBytes(), new File(fileUpload + fileName));
+            // write file to hard disk;
+            FileCopyUtils.copy(productForm.getImg().getBytes(), new File(folderContaintFileStore + fileName));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+        // colect info for store to database;
         Product product = new Product(productForm.getId(), productForm.getName(),
                 productForm.getPrice(), fileName,productForm.getDescription(), productForm.getAuthor());
         return product;
