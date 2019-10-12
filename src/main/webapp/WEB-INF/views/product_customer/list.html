@@ -4,12 +4,6 @@
 <body>
 <h3>Product</h3>
 
-<p>
-    <a th:href="@{/create-product}">
-        Add new product
-    </a>
-</p>
-
 <form>
     Search by name book:
     <input name="s" type="text"/>
@@ -23,22 +17,16 @@
         <th>Img</th>
         <th>Description</th>
         <th>Author</th>
-        <th>Edit</th>
-        <th>Delete</th>
     </tr>
 
 
     <th:block th:each="product:${products}">
         <tr>
-            <td><a th:href="@{/view-product/__${product.id}__ }"><p th:text="${product.name}"></p></a></td>
+            <td><a th:href="@{/view-product-customer/__${product.id}__ }"><p th:text="${product.name}"></p></a></td>
             <td th:text="${product.price}"></td>
             <td><img width="150px" height="150px" th:src="@{'/image/' + ${product.img}}"/></td>
             <td th:text="${product.description}"></td>
-
             <td th:text="${product.author.name}"></td>
-
-            <td><a th:href="@{/edit-product/__${product.id}__ }">Edit</a></td>
-            <td><a th:href="@{/delete-product/__${product.id}__}">Delete</a></td>
 
         </tr>
     </th:block>
@@ -46,9 +34,9 @@
 
 </table>
 <div>
-    <a th:href="@{'/products'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
+    <a th:href="@{'/products_customer'(page=${products.number - 1})}" th:if="${products.hasPrevious()}">Previous</a>
     <span th:text="${products.number + 1}"></span>/<span th:text="${products.totalPages}"></span>
-    <a th:href="@{'/products'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
+    <a th:href="@{'/products_customer'(page=${products.number + 1})}" th:if="${products.hasNext()}">Next</a>
 </div>
 
 </body>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/product/layout :: head"></head>
+<body>
+<div align="text">
+    <h1>Shopping Cart</h1>
+    <table border="1" width="800px">
+        <tr>
+            <th>Options</th>
+            <th>Name</th>
+            <th>Img</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Description</th>
+            <th>Author</th>
+            <th>Edit Quantity</th>
+            <th>Sub Total</th>
+
+        </tr>
+        <tr th:each="item,iterStat : ${session.cart}">
+
+        <td>
+            <a th:href="@{/shoppingcart/delete/__${item.product.id}__}">remove</a>
+        </td>
+            <td th:text="${item.product.name}"></td>
+            <td align="center"><img width="150px" height="150px" th:src="@{'/image/' + ${item.product.img}}"></td>
+            <td th:text="${item.product.price}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${item.product.description}"></td>
+            <td th:text="${item.product.author.name}"></td>
+            <td><a th:href="@{/shoppingcart/edit-quantity/__${item.product.id}__}">Edit</a></td>
+            <td th:text="${item.product.price * item.quantity}"></td>
+        </tr>
+
+    </table>
+
+    <h3><a th:href="@{/shoppingcart/deleteAll}">Remove All</a></h3>
+    <h2><a th:href="@{/products_customer}">Continue shopping</a></h2>
+</div>
+
+</body>
+</html>
