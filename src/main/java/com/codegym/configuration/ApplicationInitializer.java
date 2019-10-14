@@ -1,5 +1,6 @@
-package com.codegym;
+package com.codegym.configuration;
 
+import com.codegym.configuration.ApplicationConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

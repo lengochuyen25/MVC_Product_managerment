@@ -1,4 +1,4 @@
-package com.codegym;
+package com.codegym.configuration;
 
 import com.codegym.formatter.AuthorFormatter;
 import com.codegym.service.AuthorService;
@@ -171,6 +171,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         // Image resource.
         registry.addResourceHandler("/image/**") //
                 .addResourceLocations("file:" + fileUpload);
+        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
 
     }
+
 }
