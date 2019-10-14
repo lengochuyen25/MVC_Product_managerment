@@ -26,10 +26,11 @@
             <td align="center"><img width="150px" height="150px" th:src="@{'/image/' + ${item.product.img}}"></td>
             <td th:text="${item.product.price}"></td>
             <td th:text="${item.quantity}"></td>
+<!--          <td ><input th:type="number" th:value="${item.quantity}"/></td>-->
             <td th:text="${item.product.description}"></td>
             <td th:text="${item.product.author.name}"></td>
             <td><a th:href="@{/shoppingcart/edit-quantity/__${item.product.id}__}">Edit</a></td>
-            <td th:text="${item.product.price * item.quantity}"></td>
+            <td th:text="${item.product.price}* ${item.quantity}"></td>
         </tr>
 
     </table>

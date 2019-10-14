@@ -34,6 +34,6 @@ public class SecurityController {
     @GetMapping(value = {"/"})
     public String Homepage(Model model){
         model.addAttribute("user", getPrincipal());
-        return "redirect:products";
+        return "/product/homepage";
     }
 }
