@@ -20,7 +20,13 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+
     private Author author;
+
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
 
     public Author getAuthor() {
         return author;

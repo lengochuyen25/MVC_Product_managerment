@@ -1,10 +1,7 @@
 package com.codegym.configuration;
 
 import com.codegym.formatter.AuthorFormatter;
-import com.codegym.service.AuthorService;
-import com.codegym.service.AuthorServiceImpl;
-import com.codegym.service.ProductService;
-import com.codegym.service.ProductServiceImpl;
+import com.codegym.service.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -75,7 +72,10 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public AuthorService authorService() {
         return new AuthorServiceImpl();
     }
-
+    @Bean
+    public UserService userService() {
+        return new UserServiceImpl();
+    }
 
 
     //Thymeleaf Configuration

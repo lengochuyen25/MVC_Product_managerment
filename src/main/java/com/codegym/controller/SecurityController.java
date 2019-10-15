@@ -1,5 +1,10 @@
 package com.codegym.controller;
 
+import com.codegym.model.Product;
+import com.codegym.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,13 +15,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 
 @Controller
 public class SecurityController {
+    @Autowired
+    private ProductService productService;
 
 
     private String getPrincipal(){
@@ -30,10 +40,19 @@ public class SecurityController {
         }
         return userName;
     }
+    @GetMapping("/")
+    public ModelAndView listProducts(@RequestParam("s") Optional<String> s, Pageable pageable) {
+        Page<Product> products;
 
-    @GetMapping(value = {"/"})
-    public String Homepage(Model model){
-        model.addAttribute("user", getPrincipal());
-        return "/product/homepage";
+        if(s.isPresent()){
+            products= productService.findAllByNameContaining(s.get(),pageable);
+        }else {
+            products = productService.findAll(pageable);
+        }
+        ModelAndView modelAndView = new ModelAndView("/product/homepage");
+        modelAndView.addObject("products", products);
+        return modelAndView;
     }
+
+
 }

@@ -5,10 +5,10 @@
 
 <body>
 
-<h3>Create Products</h3>
+<h3>Tạo sản phẩm mới</h3>
 
 <p>
-    <a href="/products"> Back to product list</a>
+    <a href="/products"> Trở lại trang sản phẩm</a>
 </p>
 
 <th:block th:if="${message}">
@@ -19,25 +19,25 @@
 <form th:action="@{/create-product}" th:object="${product}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
-            <td>Name:</td>
+            <td>Sản phẩm:</td>
             <td><input type="text" th:field="*{name}"/></td>
         </tr>
         <tr>
-            <td>Price:</td>
+            <td>Giá:</td>
             <td><input type="text" th:field="*{price}"/></td>
         </tr>
         <tr>
-            <td>Img:</td>
+            <td>Hình ảnh:</td>
             <td><input type="file" th:field="*{img}">
             </td>
         </tr>
 
         <tr>
-            <td>Description:</td>
+            <td>Mô tả:</td>
             <td><input type="text" th:field="*{description}"/></td>
         </tr>
         <tr>
-            <td>Author:</td>
+            <td>Tác giả:</td>
             <td>
                 <select th:field="*{author}">
                     <option th:each="p : ${authors}" th:value="${p.id}" th:text="${p.name}"></option>
@@ -47,7 +47,7 @@
 
         <tr>
             <td></td>
-            <td><input type="submit" value="Create product"></td>
+            <td><input type="submit" value="Tạo mới"></td>
         </tr>
     </table>
 

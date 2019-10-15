@@ -2,27 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit quantity</title>
+    <title>Chỉnh sửa số lượng</title>
 </head>
 <body>
-<h1>Edit quantity</h1>
-<p><a href="/products_customer">Back to list product</a> </p>
+<h1>Chỉnh sửa số lượng</h1>
+<p><a href="/products_customer">Trở lại danh sách sản phẩm</a> </p>
 
 <form th:action="@{/shoppingcart/update-quantity/__${item.product.id}__}" th:object="${item}" method="post">
     <img width="150px" height="150px" th:src="@{'/image/' + ${item.product.img}}">
     <br>
-    Name: <span th:text="${item.product.name}"></span>
+    Sản phẩm: <span th:text="${item.product.name}"></span>
     <br>
-    Description: <span th:text="${item.product.description}"></span>
+    Mô tả: <span th:text="${item.product.description}"></span>
     <br>
-    Price: <span th:text="${item.product.price}"></span>
+    Giá: <span th:text="${item.product.price}"></span>
     <br>
-    Quantity: <input th:value="${item.quantity}" name="quantity">
+    Số lượng: <input th:value="${item.quantity}" name="quantity">
     <br>
 
-    <input type="submit" value="Update">
+    <input type="submit" value="Cập nhật">
 
 </form>
-
+<footer th:replace="/product/layout :: footer"></footer>
 </body>
 </html>
