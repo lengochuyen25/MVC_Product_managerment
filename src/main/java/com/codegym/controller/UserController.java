@@ -14,14 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserController {
 
-
     @Autowired
     private UserService userService;
 
     private String getPrincipal() {
         String userName;
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getName();
 
         if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();
@@ -35,6 +34,8 @@ public class UserController {
     public String user() {
         return getPrincipal();
     }
+
+
 
     @GetMapping("/login")
     public ModelAndView login() {
